@@ -1,9 +1,20 @@
 package com.arnaldocastilla.app.entity;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.arnaldocastilla.app.services.IEmpleado;
+
 public class Empleado implements Serializable {
+
+	@Autowired
+	public IEmpleado empleado;
 
 	private String Nombres;
 	private String Apellidos;
@@ -93,13 +104,24 @@ public class Empleado implements Serializable {
 	public void setSalario(Double salario) {
 		Salario = salario;
 	}
-	
+
 	public String getTiempoVinculaicionCompania() {
-		return null;
+		LocalDate fechaIngreso = this.FechaDeVinculacion.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+		Period vigencia = Period.between(fechaIngreso, LocalDate.now());
+
+		return String.format("%d años, %d meses y %d días", vigencia.getYears(), vigencia.getMonths(),
+				vigencia.getDays());
 	}
-	
+
 	public String getEdadActualEmpleado() {
-		return null;
+		LocalDate fechaNac = this.FechaDeNacimiento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+		Period edad = Period.between(fechaNac, LocalDate.now());
+		System.out.println(
+				String.format("%d años, %d meses y %d días", edad.getYears(), edad.getMonths(), edad.getDays()));
+
+		return String.format("%d años, %d meses y %d días", edad.getYears(), edad.getMonths(), edad.getDays());
 	}
 
 	/**

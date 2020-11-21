@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
@@ -44,6 +45,12 @@ public class EmpleadoImpl implements IEmpleado {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 		LocalDate localDate = LocalDate.parse(fecha, formatter);
 		return localDate;
+	}
+
+	@Override
+	public LocalDate ConvertDateALocalDate(Date fecha) {
+		LocalDate date = fecha.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		return date;
 	}
 
 }

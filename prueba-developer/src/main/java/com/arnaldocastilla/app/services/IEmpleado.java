@@ -11,9 +11,10 @@ public interface IEmpleado {
 	
 	public Date validarFormatoFecha(String fecha)throws ParseException;
 	
-	
 	public Boolean empleadoMayorEdad(LocalDate fechaNacimiento);
 	
 	public LocalDate convertirLocalDate(String fecha);
+	
+	public LocalDate ConvertDateALocalDate(Date fecha);
 
 }
